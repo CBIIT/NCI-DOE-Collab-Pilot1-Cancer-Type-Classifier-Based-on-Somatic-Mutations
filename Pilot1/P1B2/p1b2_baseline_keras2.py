@@ -9,7 +9,7 @@ from keras import optimizers
 from keras.models import Model, Sequential
 from keras.layers import Activation, Dense, Dropout, Input
 from keras.initializers import RandomUniform
-from keras.callbacks import Callback, ModelCheckpoint
+from keras.callbacks import Callback, ModelCheckpoint, History
 from keras.regularizers import l2
 
 #import sys,os
@@ -117,15 +117,24 @@ def run(gParameters):
     # Seed random generator for training
     np.random.seed(seed)
 
-    mlp.fit(X_train, y_train,
-            batch_size=gParameters['batch_size'],
-            epochs=gParameters['epochs'],
-            validation_data=(X_val, y_val)
-            )
+    history = mlp.fit(X_train, y_train,
+                      batch_size=gParameters['batch_size'],
+                      epochs=gParameters['epochs'],
+                      validation_data=(X_val, y_val)
+                      )
+
+    best_val_loss = "{:.5f}".format(min(history.history['val_loss']))
+    best_val_acc = "{:.5f}".format(max(history.history['val_acc']))
+    print('best_val_loss =', best_val_loss, 'best_val_acc =', best_val_acc)
 
     # model save
-    #save_filepath = "model_mlp_W_" + ext
-    #mlp.save_weights(save_filepath)
+    # save_filepath = "model_mlp_W_" + ext
+    # mlp.save_weights(save_filepath)
+
+    model_json = mlp.to_json()
+    with open(prefix + '.model.json', 'w') as f:
+        print(model_json, file=f)
+    mlp.save_weights(prefix + '.weights.h5')
 
     # Evalute model on test set
     y_pred = mlp.predict(X_test)
