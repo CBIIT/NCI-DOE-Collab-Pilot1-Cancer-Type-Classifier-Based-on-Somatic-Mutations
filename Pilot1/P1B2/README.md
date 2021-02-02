@@ -124,3 +124,18 @@ cd Pilot1/P1B2
 python p1b2_xgboost.py
 ```
 
+### Inference: 
+
+To test the trained model in inference, the script [p1b2_infer.py](p1b2_infer.py) does the following:
+* Loads the trained model
+* Downloads the processed test dataset with the corresponding labels
+* Performs inference on the test dataset
+* Reports the accuracy of the model on the test dataset
+
+```bash
+   python p1b2_infer.py
+   ```
+#### Example output
+```
+Evaluation on test data: {'accuracy': 0.475}
+```
