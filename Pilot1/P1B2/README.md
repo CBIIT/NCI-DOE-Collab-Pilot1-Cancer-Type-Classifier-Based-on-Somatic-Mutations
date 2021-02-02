@@ -119,10 +119,9 @@ Evaluation on test data: {'accuracy': 0.475}
 
 The XGBoost classifier below achieves ~55% average accuracy on validation data in the five-fold cross validation experiment. This suggests there may be a low ceiling for the MLP results; there may not be enough information in this set of SNP data to classify cancer types accurately.
 
-```
-cd Pilot1/P1B2
-python p1b2_xgboost.py
-```
+```cd Pilot1/P1B2
+   python p1b2_xgboost.py
+   ```
 
 ### Inference: 
 
