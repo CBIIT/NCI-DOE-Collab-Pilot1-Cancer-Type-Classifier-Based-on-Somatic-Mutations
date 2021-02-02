@@ -115,7 +115,7 @@ best_val_loss = 6.07406 best_val_acc = 0.00000
 Evaluation on test data: {'accuracy': 0.475}
 ```
 
-### Preliminary performance
+### Preliminary performance:
 
 The XGBoost classifier below achieves ~55% average accuracy on validation data in the five-fold cross validation experiment. This suggests there may be a low ceiling for the MLP results; there may not be enough information in this set of SNP data to classify cancer types accurately.
 
