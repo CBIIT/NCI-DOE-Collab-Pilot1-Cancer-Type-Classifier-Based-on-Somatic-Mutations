@@ -1,5 +1,3 @@
-## P1B2: Sparse Classifier Disease Type Prediction from Somatic SNPs
-
 ### Model description:
 P1B2, an a deep learning network that can classify the cancer type using patient somatic SNPs.
 The proposed network architecture is MLP with regularization, which includes 5 layers.
