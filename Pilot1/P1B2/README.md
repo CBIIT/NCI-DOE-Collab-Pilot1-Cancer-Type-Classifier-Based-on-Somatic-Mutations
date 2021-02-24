@@ -105,14 +105,6 @@ Best model saved to: model.A=sigmoid.B=64.D=None.E=20.L1=1024.L2=512.L3=256.P=1e
 Evaluation on test data: {'accuracy': 0.56}
 ```
 
-### Preliminary performance:
-
-The XGBoost classifier below achieves ~55% average accuracy on validation data in the five-fold cross validation experiment. This suggests there may be a low ceiling for the MLP results; there may not be enough information in this set of SNP data to classify cancer types accurately.
-
-```cd Pilot1/P1B2
-   python p1b2_xgboost.py
-   ```
-
 ### Inference: 
 
 To test the trained model in inference, the script [p1b2_infer.py](p1b2_infer.py) does the following:
