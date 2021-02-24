@@ -25,9 +25,12 @@ To setup the python environment needed to train and run this model, first make s
    conda env create -f environment.yml -n P1B2
    conda activate P1B2
    ```
-### Running the baseline implementation:
+   
+To download the processed data needed to train and test the model, and the trained model files, you should create an account first on the Model and Data Clearinghouse [MoDac](modac.cancer.gov). The training and test scripts will prompt you to enter your MoDac credentials.
 
-The script [p1b2_baseline_keras2.py](p1b2_baseline_keras2.py) does the following:
+### Training:
+
+To train the model from scratch, the script [p1b2_baseline_keras2.py](p1b2_baseline_keras2.py) does the following:
 * Reads the model configuration parameters from [p1b2_default_model.txt](p1b2_default_model.txt)
 * Downloads the training data and splits it to training/validation sets
 * Creates and trains the keras model
