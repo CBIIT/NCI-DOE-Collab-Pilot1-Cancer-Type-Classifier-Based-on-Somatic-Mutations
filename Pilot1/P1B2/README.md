@@ -31,7 +31,6 @@ To download the processed data needed to train and test the model, and the train
 ### Training:
 
 To train the model from scratch, the script [p1b2_baseline_keras2.py](p1b2_baseline_keras2.py) does the following:
-* Reads the model configuration parameters from [p1b2_default_model.txt](p1b2_default_model.txt)
 * Downloads the training data and splits it to training/validation sets
 * Creates and trains the keras model
 * Saves the best trained model based on the model performance on the validation dataset
@@ -46,18 +45,9 @@ The training and test data files will be downloaded the first time this is run a
 
 ```
 Using TensorFlow backend.
-
-Shape X_train:  (2700, 28204)
-Shape X_val:  (300, 28204)
-Shape X_test:  (1000, 28204)
-Shape y_train:  (2700, 10)
-Shape y_val:  (300, 10)
-Shape y_test:  (1000, 10)
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-input_1 (InputLayer)         (None, 28204)             0         
-_________________________________________________________________
 dense_1 (Dense)              (None, 1024)              28881920  
 _________________________________________________________________
 dense_2 (Dense)              (None, 512)               524800    
@@ -70,52 +60,51 @@ Total params: 29,540,618
 Trainable params: 29,540,618
 Non-trainable params: 0
 ____________________________________________________________________________________________________
-None
-Train on 2700 samples, validate on 300 samples
+Train on 2400 samples, validate on 600 samples
 Epoch 1/20
-2700/2700 [==============================] - 11s 4ms/step - loss: 2.3163 - acc: 0.1637 - val_loss: 6.0741 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 11s 5ms/step - loss: 2.3507 - acc: 0.1762 - val_loss: 2.1590 - val_acc: 0.1983
 Epoch 2/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 2.0578 - acc: 0.2607 - val_loss: 7.7469 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 733us/step - loss: 1.9286 - acc: 0.3563 - val_loss: 1.9081 - val_acc: 0.3200
 Epoch 3/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 1.8499 - acc: 0.3478 - val_loss: 9.5266 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 731us/step - loss: 1.2972 - acc: 0.6208 - val_loss: 1.6839 - val_acc: 0.4317
 Epoch 4/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 1.6315 - acc: 0.4374 - val_loss: 11.1787 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 733us/step - loss: 0.7665 - acc: 0.8417 - val_loss: 1.5829 - val_acc: 0.5417
 Epoch 5/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 1.4228 - acc: 0.5044 - val_loss: 13.1909 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 733us/step - loss: 0.4754 - acc: 0.9558 - val_loss: 1.5494 - val_acc: 0.5433
 Epoch 6/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 1.2675 - acc: 0.5833 - val_loss: 15.7211 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 733us/step - loss: 0.3217 - acc: 0.9925 - val_loss: 1.5524 - val_acc: 0.5417
 Epoch 7/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 1.1087 - acc: 0.6819 - val_loss: 16.3223 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 732us/step - loss: 0.2715 - acc: 0.9958 - val_loss: 1.5190 - val_acc: 0.5533
 Epoch 8/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.9924 - acc: 0.7159 - val_loss: 16.3702 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 732us/step - loss: 0.2442 - acc: 0.9967 - val_loss: 1.4909 - val_acc: 0.5667
 Epoch 9/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.9099 - acc: 0.7452 - val_loss: 16.3683 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 730us/step - loss: 0.2242 - acc: 0.9979 - val_loss: 1.4973 - val_acc: 0.5500
 Epoch 10/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.8459 - acc: 0.7759 - val_loss: 16.3711 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 728us/step - loss: 0.2094 - acc: 0.9975 - val_loss: 1.5475 - val_acc: 0.5283
 Epoch 11/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.7872 - acc: 0.8022 - val_loss: 16.3704 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 729us/step - loss: 0.1964 - acc: 0.9988 - val_loss: 1.4513 - val_acc: 0.5683
 Epoch 12/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.7390 - acc: 0.8189 - val_loss: 16.3710 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 729us/step - loss: 0.1867 - acc: 0.9988 - val_loss: 1.5095 - val_acc: 0.5483
 Epoch 13/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.7014 - acc: 0.8456 - val_loss: 16.3687 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 730us/step - loss: 0.1775 - acc: 0.9988 - val_loss: 1.5169 - val_acc: 0.5383
 Epoch 14/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.6254 - acc: 0.8830 - val_loss: 16.3755 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 729us/step - loss: 0.1710 - acc: 0.9988 - val_loss: 1.4858 - val_acc: 0.5500
 Epoch 15/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.5848 - acc: 0.9041 - val_loss: 16.3745 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 737us/step - loss: 0.1637 - acc: 0.9996 - val_loss: 1.4768 - val_acc: 0.5600
 Epoch 16/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.5538 - acc: 0.9081 - val_loss: 16.3750 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 734us/step - loss: 0.1585 - acc: 0.9996 - val_loss: 1.4480 - val_acc: 0.5633
 Epoch 17/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.4993 - acc: 0.9330 - val_loss: 16.3755 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 729us/step - loss: 0.1537 - acc: 0.9996 - val_loss: 1.4665 - val_acc: 0.5650
 Epoch 18/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.5186 - acc: 0.9174 - val_loss: 16.3738 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 729us/step - loss: 0.1493 - acc: 0.9996 - val_loss: 1.4576 - val_acc: 0.5617
 Epoch 19/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.4608 - acc: 0.9396 - val_loss: 16.3709 - val_acc: 0.0000e+00
+2400/2400 [==============================] - 2s 729us/step - loss: 0.1443 - acc: 0.9996 - val_loss: 1.4491 - val_acc: 0.5650
 Epoch 20/20
-2700/2700 [==============================] - 3s 1ms/step - loss: 0.4824 - acc: 0.9330 - val_loss: 16.3686 - val_acc: 0.0000e+00
-
-best_val_loss = 6.07406 best_val_acc = 0.00000
-
-Evaluation on test data: {'accuracy': 0.475}
+2400/2400 [==============================] - 2s 731us/step - loss: 0.1417 - acc: 0.9996 - val_loss: 1.4648 - val_acc: 0.5650
+Saved json model to disk
+best_val_loss=1.44796 best_val_acc=0.56833
+Best model saved to: model.A=sigmoid.B=64.D=None.E=20.L1=1024.L2=512.L3=256.P=1e-05.h5
+Evaluation on test data: {'accuracy': 0.56}
 ```
 
 ### Preliminary performance:
@@ -139,5 +128,5 @@ To test the trained model in inference, the script [p1b2_infer.py](p1b2_infer.py
    ```
 #### Example output
 ```
-Evaluation on test data: {'accuracy': 0.475}
+Evaluation on test data: {'accuracy': 0.55}
 ```
