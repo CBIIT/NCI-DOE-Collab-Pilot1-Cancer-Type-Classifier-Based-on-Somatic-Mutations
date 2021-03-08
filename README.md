@@ -19,7 +19,7 @@ Untrained model:
 * Untrained neural network model is defined in [p1b2.model.json](https://modac.cancer.gov/searchTab?dme_data_id=).
 
 Data:
-* Processed training and test data in [MoDaC](https://modac.cancer.gov/searchTab?dme_data_id=).
+* Processed training and test data in [ToDo: MoDaC](https://modac.cancer.gov/searchTab?dme_data_id=).
 
 Trained Model:
 * Trained model is defined by combining the untrained model + model weights.
