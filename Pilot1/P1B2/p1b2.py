@@ -1,170 +1,165 @@
 from __future__ import print_function
 
-import argparse
-
+import pandas as pd
 import numpy as np
 
-from keras import backend as K
-from keras import optimizers
-from keras.models import Model, Sequential, model_from_json
-from keras.layers import Activation, Dense, Dropout, Input
-from keras.initializers import RandomUniform
-from keras.callbacks import Callback, ModelCheckpoint, History
-from keras.regularizers import l2
+from sklearn.metrics import accuracy_score
 
-#import sys,os
+import os
+import sys
+import logging
+import argparse
+try:
+    import configparser
+except ImportError:
+    import ConfigParser as configparser
 
-import p1b2
+file_path = os.path.dirname(os.path.realpath(__file__))
+lib_path = os.path.abspath(os.path.join(file_path, '..', '..', 'common'))
+sys.path.append(lib_path)
+
+from file_utils import get_file
+
+
+file_path = os.path.dirname(os.path.realpath(__file__))
+lib_path = os.path.abspath(os.path.join(file_path, '..', 'common'))
+sys.path.append(lib_path)
+lib_path2 = os.path.abspath(os.path.join(file_path, '..', '..', 'common'))
+sys.path.append(lib_path2)
+
 import candle
 
-def initialize_parameters(default_model = 'p1b2_default_model.txt'):
+#url_p1b2 = 'http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/P1B2/'
+#file_train = 'P1B2.train.csv'
+#file_test = 'P1B2.test.csv'
 
-    # Build benchmark object
-    p1b2Bmk = p1b2.BenchmarkP1B2(p1b2.file_path, default_model, 'keras',
-    prog='p1b2_baseline', desc='Train Classifier - Pilot 1 Benchmark 2')
+logger = logging.getLogger(__name__)
 
-    # Initialize parameters
-    gParameters = candle.finalize_parameters(p1b2Bmk)
-    #p1b2.logger.info('Params: {}'.format(gParameters))
+additional_definitions = [
+{'name':'reg_l2',
+'type': float,
+'default': 0.,
+'help':'weight of regularization for l2 norm of nn weights'}
+]
 
-    return gParameters
+required = [
+    'data_url',
+    'train_data',
+    'test_data',
+    'activation',
+    'batch_size',
+    'dense',
+    'dropout',
+    'epochs',
+    'feature_subsample',
+    'initialization',
+    'learning_rate',
+    'loss',
+    'optimizer',
+    'reg_l2',
+    'rng_seed',
+    'scaling',
+    'val_split',
+    'shuffle'
+]
+
+class BenchmarkP1B2(candle.Benchmark):
+
+    def set_locals(self):
+        """Functionality to set variables specific for the benchmark
+        - required: set of required parameters for the benchmark.
+        - additional_definitions: list of dictionaries describing the additional parameters for the
+        benchmark.
+        """
+
+        if required is not None:
+            self.required = set(required)
+        if additional_definitions is not None:
+            self.additional_definitions = additional_definitions
+
+def extension_from_parameters(params, framework):
+    """Construct string for saving model with annotation of parameters"""
+    ext = framework
+    ext += '.A={}'.format(params['activation'])
+    ext += '.B={}'.format(params['batch_size'])
+    ext += '.D={}'.format(params['dropout'])
+    ext += '.E={}'.format(params['epochs'])
+    if params['feature_subsample']:
+        ext += '.F={}'.format(params['feature_subsample'])
+    for i, n in enumerate(params['dense']):
+        if n:
+            ext += '.D{}={}'.format(i+1, n)
+    ext += '.S={}'.format(params['scaling'])
+
+    return ext
 
 
-def run(gParameters):
-    
-    # Construct extension to save model
-    ext = p1b2.extension_from_parameters(gParameters, '.keras')
-    candle.verify_path(gParameters['save_path'])
-    prefix = '{}{}'.format(gParameters['save_path'], ext)
-    logfile = gParameters['logfile'] if gParameters['logfile'] else prefix+'.log'
-    #candle.set_up_logger(logfile, p1b2.logger, gParameters['verbose'])
-    #p1b2.logger.info('Params: {}'.format(gParameters))
+def load_data_one_hot(params, seed):
+   # fetch data
+    file_train = candle.fetch_file(params['data_url'] + params['train_data'],subdir='Pilot1')
+    file_test = candle.fetch_file(params['data_url'] + params['test_data'],subdir='Pilot1')
 
-    # Get default parameters for initialization and optimizer functions
-    kerasDefaults = candle.keras_default_config()
-    seed = gParameters['rng_seed']
-    
-    # Load dataset
-    #(X_train, y_train), (X_test, y_test) = p1b2.load_data(gParameters, seed)
-    #(X_train, y_train), (X_val, y_val), (X_test, y_test) = p1b2.load_data_one_hot(gParameters, seed)
-    (X_train, y_train), (X_test, y_test) = p1b2.load_data2(gParameters, seed)
+    return candle.load_Xy_one_hot_data2(file_train, file_test, class_col=['cancer_type'],
+                                           drop_cols=['case_id', 'cancer_type'],
+                                           n_cols=params['feature_subsample'],
+                                           shuffle=params['shuffle'],
+                                           scaling=params['scaling'],
+                                           validation_split=params['val_split'],
+                                           dtype=params['data_type'],
+                                           seed=seed)
 
-    # print ("Shape X_train: ", X_train.shape)
-    # print ("Shape X_val: ", X_val.shape)
-    print ("Shape X_test: ", X_test.shape)
-    # print ("Shape y_train: ", y_train.shape)
-    # print ("Shape y_val: ", y_val.shape)
-    print ("Shape y_test: ", y_test.shape)
 
-    # print ("Range X_train --> Min: ", np.min(X_train), ", max: ", np.max(X_train))
-    # print ("Range X_val --> Min: ", np.min(X_val), ", max: ", np.max(X_val))
-    print ("Range X_test --> Min: ", np.min(X_test), ", max: ", np.max(X_test))
-    # print ("Range y_train --> Min: ", np.min(y_train), ", max: ", np.max(y_train))
-    # print ("Range y_val --> Min: ", np.min(y_val), ", max: ", np.max(y_val))
-    print ("Range y_test --> Min: ", np.min(y_test), ", max: ", np.max(y_test))
+def load_data(params, seed):
+   # fetch data
+    file_train = candle.fetch_file(params['data_url'] + params['train_data'],subdir='Pilot1')
+    file_test = candle.fetch_file(params['data_url'] + params['test_data'],subdir='Pilot1')
 
-    # input_dim = X_train.shape[1]
-    # input_vector = Input(shape=(input_dim,))
-    # output_dim = y_train.shape[1]
+    return candle.load_Xy_data2(file_train, file_test, class_col=['cancer_type'],
+                                  drop_cols=['case_id', 'cancer_type'],
+                                  n_cols=params['feature_subsample'],
+                                  shuffle=params['shuffle'],
+                                  scaling=params['scaling'],
+                                  validation_split=params['val_split'],
+                                  dtype=params['data_type'],
+                                  seed=seed)
 
-    # # Initialize weights and learning rule
-    # initializer_weights = candle.build_initializer(gParameters['initialization'], kerasDefaults, seed)
-    # initializer_bias = candle.build_initializer('constant', kerasDefaults, 0.)
-    #
-    # activation = gParameters['activation']
-    #
-    # # Define MLP architecture
-    # layers = gParameters['dense']
-    #
-    # if layers != None:
-    #     if type(layers) != list:
-    #         layers = list(layers)
-    #     for i,l in enumerate(layers):
-    #         if i==0:
-    #             x = Dense(l, activation=activation,
-    #                       kernel_initializer=initializer_weights,
-    #                       bias_initializer=initializer_bias,
-    #                       kernel_regularizer=l2(gParameters['reg_l2']),
-    #                       activity_regularizer=l2(gParameters['reg_l2']))(input_vector)
-    #         else:
-    #             x = Dense(l, activation=activation,
-    #                       kernel_initializer=initializer_weights,
-    #                       bias_initializer=initializer_bias,
-    #                       kernel_regularizer=l2(gParameters['reg_l2']),
-    #                       activity_regularizer=l2(gParameters['reg_l2']))(x)
-    #         if gParameters['dropout']:
-    #             x = Dropout(gParameters['dropout'])(x)
-    #     output = Dense(output_dim, activation=activation,
-    #                    kernel_initializer=initializer_weights,
-    #                    bias_initializer=initializer_bias)(x)
-    # else:
-    #     output = Dense(output_dim, activation=activation,
-    #                    kernel_initializer=initializer_weights,
-    #                    bias_initializer=initializer_bias)(input_vector)
-    #
-    # # Build MLP model
-    # mlp = Model(outputs=output, inputs=input_vector)
-    # p1b2.logger.debug('Model: {}'.format(mlp.to_json()))
+def load_data2(params, seed, shuffle=True, n_cols=None):
+    train_path = get_file('P1B2.train.csv', origin='http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/P1B2/P1B2.train.csv')
+    test_path = get_file('P1B2.test.csv', origin='http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/P1B2/P1B2.test.csv')
 
-    # Define optimizer
-    optimizer = candle.build_optimizer(gParameters['optimizer'],
-                                                gParameters['learning_rate'],
-                                                kerasDefaults)
+    usecols = list(range(n_cols)) if n_cols else None
 
-    # # Compile and display model
-    # mlp.compile(loss=gParameters['loss'], optimizer=optimizer, metrics=['accuracy'])
-    # mlp.summary()
+    df_train = pd.read_csv(train_path, engine='c', usecols=usecols)
+    df_test = pd.read_csv(test_path, engine='c', usecols=usecols)
 
-    # # Seed random generator for training
-    # np.random.seed(seed)
-    #
-    # history = mlp.fit(X_train, y_train,
-    #                   batch_size=gParameters['batch_size'],
-    #                   epochs=gParameters['epochs'],
-    #                   validation_data=(X_val, y_val)
-    #                   )
-    #
-    # best_val_loss = "{:.5f}".format(min(history.history['val_loss']))
-    # best_val_acc = "{:.5f}".format(max(history.history['val_acc']))
-    # print('best_val_loss =', best_val_loss, 'best_val_acc =', best_val_acc)
+    # df_train = candle.fetch_file(params['data_url'] + params['train_data'],subdir='Pilot1')
+    # df_test  = candle.fetch_file(params['data_url'] + params['test_data'],subdir='Pilot1')
 
-    # model save
-    # save_filepath = "model_mlp_W_" + ext
-    # mlp.save_weights(save_filepath)
+    if shuffle:
+        df_train = df_train.sample(frac=1, random_state=seed)
+        df_test = df_test.sample(frac=1, random_state=seed)
 
-    # model_json = mlp.to_json()
-    # with open(prefix + '.model.json', 'w') as f:
-    #     print(model_json, file=f)
-    # mlp.save_weights(prefix + '.weights.h5')
+    X_train = df_train.iloc[:, 2:].values
+    X_test = df_test.iloc[:, 2:].values
 
-    # load json and create model
-    json_file = open('p1b2.model.json', 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
-    loaded_model_json = model_from_json(loaded_model_json)
+    y_train = pd.get_dummies(df_train[['cancer_type']]).values
+    y_test = pd.get_dummies(df_test[['cancer_type']]).values
 
-    # load weights into new model
-    loaded_model_json.load_weights('p1b2.model.h5')
-    print("Loaded model from disk")
+    return (X_train, y_train), (X_test, y_test)
 
-    # evaluate loaded model on test data
-    loaded_model_json.compile(loss=gParameters['loss'], optimizer=optimizer, metrics=['accuracy'])
-    y_pred = loaded_model_json.predict(X_test)
-    scores = p1b2.evaluate_accuracy_one_hot(y_pred, y_test)
-    print('Evaluation on test data:', scores)
 
-    # # Evalute model on test set
-    # y_pred = mlp.predict(X_test)
-    # scores = p1b2.evaluate_accuracy_one_hot(y_pred, y_test)
-    # print('Evaluation on test data:', scores)
+def evaluate_accuracy_one_hot(y_pred, y_test):
+    def map_max_indices(nparray):
+        maxi = lambda a: a.argmax()
+        iter_to_na = lambda i: np.fromiter(i, dtype=np.float)
+        return np.array([maxi(a) for a in nparray])
+    ya, ypa = tuple(map(map_max_indices, (y_test, y_pred)))
+    accuracy = accuracy_score(ya, ypa)
+    # print('Accuracy: {}%'.format(100 * accuracy))
+    return {'accuracy': accuracy}
 
-def main():
-   params = initialize_parameters()
-   run(params)
 
-if __name__ == '__main__':
-    main()
-    try:
-        K.clear_session()
-    except AttributeError:      # theano does not have this function
-        pass
+def evaluate_accuracy(y_pred, y_test):
+    accuracy = accuracy_score(y_test, y_pred)
+    # print('Accuracy: {}%'.format(100 * accuracy))
+    return {'accuracy': accuracy}
