@@ -45,22 +45,12 @@ def run(gParameters):
     seed = gParameters['rng_seed']
     
     # Load dataset
-    #(X_train, y_train), (X_test, y_test) = p1b2.load_data(gParameters, seed)
-    #(X_train, y_train), (X_val, y_val), (X_test, y_test) = p1b2.load_data_one_hot(gParameters, seed)
     (X_train, y_train), (X_test, y_test) = p1b2.load_data2(gParameters, seed)
 
-    # print ("Shape X_train: ", X_train.shape)
-    # print ("Shape X_val: ", X_val.shape)
     print ("Shape X_test: ", X_test.shape)
-    # print ("Shape y_train: ", y_train.shape)
-    # print ("Shape y_val: ", y_val.shape)
     print ("Shape y_test: ", y_test.shape)
 
-    # print ("Range X_train --> Min: ", np.min(X_train), ", max: ", np.max(X_train))
-    # print ("Range X_val --> Min: ", np.min(X_val), ", max: ", np.max(X_val))
     print ("Range X_test --> Min: ", np.min(X_test), ", max: ", np.max(X_test))
-    # print ("Range y_train --> Min: ", np.min(y_train), ", max: ", np.max(y_train))
-    # print ("Range y_val --> Min: ", np.min(y_val), ", max: ", np.max(y_val))
     print ("Range y_test --> Min: ", np.min(y_test), ", max: ", np.max(y_test))
 
     # Define optimizer
