@@ -1,5 +1,5 @@
 ### Model description:
-P1B2, an a deep learning network that can classify the cancer type using patient somatic SNPs.
+P1B2 is an a deep learning network that can classify the cancer type using patient somatic SNPs.
 The proposed network architecture is MLP with regularization, which includes 5 layers.
 The model is trained and validated on SNP data from GDC. The sample size is 4,000 (3000 training + 1000 test).
 The full set of features contains 28,205 columns.
