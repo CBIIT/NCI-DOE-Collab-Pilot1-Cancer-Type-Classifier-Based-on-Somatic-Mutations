@@ -1,8 +1,8 @@
 ### Model Description:
-The Mutation Classifier capability (Pilot 1 Benchmark 2, also known as P1B2) is a deep learning network that can classify the cancer type using patient somatic single nucleotide polymorphisms (SNPs). &#x1F534;_**(Question: Does the audience know what the acronyms SNP, MLP, MAF stand for? Full spellings have been added.)**_ The proposed network architecture is multilayer perceptron (MLP) with regularization, which includes five layers. The model is trained and validated on SNP data from Genomic Data Commons (GDC). It is useful for classification based on very sparse input data and evaluation of the information content and predictive value in a molecular assay with auxiliary learning tasks.
+The Mutation Classifier capability (Pilot 1 Benchmark 2, also known as P1B2) is a deep learning network that can classify the cancer type using patient somatic Single Nucleotide Polymorphisms (SNPs). &#x1F534;_**(Question: Does the audience know what the acronyms SNP, MLP, MAF stand for? Full spellings have been added.)**_ The proposed network architecture is MultiLayer Perceptron (MLP) with regularization, which includes five layers. The model is trained and validated on SNP data from Genomic Data Commons (GDC). It is useful for classification based on very sparse input data and evaluation of the information content and predictive value in a molecular assay with auxiliary learning tasks.
 
 ### Description of the Data:
-* Data source: SNP data from GDC mutation annotation format (MAF) files
+* Data source: SNP data from GDC Mutation Annotation Format (MAF) files
 * Input dimensions: 28,205 (aggregated variation impact by gene from 2.7 million unique SNPs) &#x1F534;_**(Question: What is the unit? 28,205 files? Column)**_
 * Output dimensions: 10 class probabilities (the nine most abundant cancer types in GDC and one probability for “others”)
 * Sample size: 4,000 (3000 training + 1000 test) &#x1F534;_**(Questions: What is the unit? 4,000 files? Also, do we need to say this in two places? The unit is sample. Sample size has been removed from the Model Description.)**_
@@ -112,7 +112,7 @@ Evaluation on test data: {'accuracy': 0.543}
 ### Inference: 
 
 To test the trained model in inference, execute the script [p1b2_infer.py](p1b2_infer.py). This script does the following:
-* Loads the trained model. &#x1F534;_**(Question: Is load the same as download? No. Load the model from the directory and download the data from the MoDaC)**_
+* Loads the trained model. &#x1F534;_**(Question: Is load the same as download? No. Load the model from the working directory and download the data from the MoDaC)**_
 * Downloads the processed test dataset with the corresponding labels.
 * Performs inference on the test dataset.
 * Reports the accuracy of the model on the test dataset.
