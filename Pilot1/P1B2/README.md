@@ -1,18 +1,18 @@
-### Model Description:
+### Model Description
 The Mutation Classifier capability (Pilot 1 Benchmark 2, also known as P1B2) is a deep learning network that can classify the cancer type using patient somatic Single Nucleotide Polymorphisms (SNPs). The proposed network architecture is MultiLayer Perceptron (MLP) with regularization, which includes five layers. We trained and validated the model on SNP data from Genomic Data Commons (GDC). It is useful for classification based on very sparse input data and evaluation of the information content and predictive value in a molecular assay with auxiliary learning tasks.
 
-### Description of the Data:
+### Description of the Data
 * Data source: SNP data from GDC Mutation Annotation Format (MAF) files
 * Input dimensions: 28,205 columns (aggregated variation impact by gene from 2.7 million unique SNPs) 
 * Output dimensions: 10 class probabilities (the nine most abundant cancer types in GDC and one probability for “others”)
 * Sample size: 4,000 samples (3000 training and 1000 test) 
 * Notes on data balance and other issues: Data balance achieved via undersampling; The “others” category represents all remaining lower-abundance cancer types in GDC.
 
-### Expected Outcomes:
+### Expected Outcomes
 * Classification
 * Output range or number of classes: 10
 
-### Setup:
+### Setup
 To set up the Python environment needed to train and run this model:
 1. Install the [conda](https://docs.conda.io/en/latest/) package manager.
 2. Clone this repository.
@@ -28,7 +28,7 @@ To download the processed data needed to train and test the model, and the train
 2. Follow the instructions in the Training section below.
 3. When prompted by the training and test scripts, enter your MoDaC credentials.
 
-### Training:
+### Training
 
 To train the model from scratch, execute the script [p1b2_baseline_keras2.py](p1b2_baseline_keras2.py), as follows: 
 
@@ -112,7 +112,7 @@ best_val_loss = 1.58964 best_val_acc = 0.58333
 Evaluation on test data: {'accuracy': 0.543}
 ```
 
-### Inference: 
+### Inference
 
 To test the trained model in inference, execute the script [p1b2_infer.py](p1b2_infer.py), as follows: 
 
