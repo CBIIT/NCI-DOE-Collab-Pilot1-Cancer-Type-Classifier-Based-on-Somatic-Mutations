@@ -37,6 +37,7 @@ To train the model from scratch, execute the script [p1b2_baseline_keras2.py](p1
    ```
 
 This script does the following:
+* Reads the model configuration parameters from [p1b2_default_model.txt](p1b2_default_model.txt)
 * Downloads the training data and splits it into training/validation sets.
 * Creates and trains the Keras model.
 * Saves the best trained model based on the model performance on the validation dataset.
