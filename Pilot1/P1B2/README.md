@@ -1,12 +1,12 @@
 ### Model Description:
-The Mutation Classifier capability (Pilot 1 Benchmark 2, also known as P1B2) is a deep learning network that can classify the cancer type using patient somatic Single Nucleotide Polymorphisms (SNPs). The proposed network architecture is MultiLayer Perceptron (MLP) with regularization, which includes five layers. The model is trained and validated on SNP data from Genomic Data Commons (GDC). It is useful for classification based on very sparse input data and evaluation of the information content and predictive value in a molecular assay with auxiliary learning tasks.
+The Mutation Classifier capability (Pilot 1 Benchmark 2, also known as P1B2) is a deep learning network that can classify the cancer type using patient somatic Single Nucleotide Polymorphisms (SNPs). The proposed network architecture is MultiLayer Perceptron (MLP) with regularization, which includes five layers. We trained and validated the model on SNP data from Genomic Data Commons (GDC). It is useful for classification based on very sparse input data and evaluation of the information content and predictive value in a molecular assay with auxiliary learning tasks.
 
 ### Description of the Data:
 * Data source: SNP data from GDC Mutation Annotation Format (MAF) files
 * Input dimensions: 28,205 columns (aggregated variation impact by gene from 2.7 million unique SNPs) 
 * Output dimensions: 10 class probabilities (the nine most abundant cancer types in GDC and one probability for “others”)
 * Sample size: 4,000 samples (3000 training and 1000 test) 
-* Notes on data balance and other issues: Data balance achieved via undersampling; The “others” category drawn from all remaining lower-abundance cancer types in GDC.
+* Notes on data balance and other issues: Data balance achieved via undersampling; The “others” category represents all remaining lower-abundance cancer types in GDC.
 
 ### Expected Outcomes:
 * Classification
@@ -14,7 +14,7 @@ The Mutation Classifier capability (Pilot 1 Benchmark 2, also known as P1B2) is 
 
 ### Setup:
 To set up the Python environment needed to train and run this model:
-1. Install [conda](https://docs.conda.io/en/latest/) package manager.
+1. Install the [conda](https://docs.conda.io/en/latest/) package manager.
 2. Clone this repository.
 3. Create the environment as shown below.
 
