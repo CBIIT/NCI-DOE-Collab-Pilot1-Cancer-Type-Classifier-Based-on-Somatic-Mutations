@@ -9,10 +9,11 @@ Researchers interested in the following topics:
 * Secondary: Machine Learning; Bioinformatics; Computational Biology
 
 ### Usability:	
-The current code makes heavy use of CANDLE Application Programming Interfaces (APIs). It can be used by a data scientist experienced in python and the domain.
+The provided untrained model can be used by a data scientist. The scripts use already processed data. The untrained model makes heavy use of CANDLE API layers which may limit its usability for novice users.
 
 ### Uniqueness:	
-Autoencoder are not the only method for dimensionality reduction. Other techniques like principal component analysis, t-distributed Stochastic Neighbor Embedding (tSNE), and Uniform Manifold Approximation and Projection (UMAP) are popular for molecular data. For high dimensional input vectors autoencoder can be beneficial, but this needs to be investigated.
+Using neural networks in classification of somatic mutation has been presented in other research papers. This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs) which might not be the best way to reduce the features space. The technical team is not sure about the uniqueness of the method used to reduce the dimension of the somatic mutations.
+ &#x1F534;_**(Question: Does the audience know what the acronym SNP stands for? Full spellings have been added. )**_
 
 ### Components:	
 &#x1F534;_**(Question: Will all three links point to the same asset in MoDaC? Yes)**_
