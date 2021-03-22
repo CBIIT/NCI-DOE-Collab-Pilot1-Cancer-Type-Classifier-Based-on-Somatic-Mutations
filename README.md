@@ -9,18 +9,17 @@ Researchers interested in the following topics:
 * Secondary: Machine Learning; Bioinformatics; Computational Biology
 
 ### Usability:	
-The provided untrained model can be used by a data scientist. The scripts use already processed data. The untrained model makes heavy use of CANDLE API layers which may limit its usability for novice users.
+A data scientist can use the provided untrained model. The scripts use already-processed data. The untrained model makes heavy use of CANDLE API layers, which may limit its usability for novice users.
 
 ### Uniqueness:	
-Using neural networks in classification of somatic mutation has been presented in other research papers. This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs) which might not be the best way to reduce the features space. The technical team is not sure about the uniqueness of the method used to reduce the dimension of the somatic mutations.
- &#x1F534;_**(Question: Does the audience know what the acronym SNP stands for? Full spellings have been added. )**_
+Using neural networks in classification of somatic mutation has been presented in other research papers. This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs), which might not be the best way to reduce the features space. The technical team is not sure about the uniqueness of the method used to reduce the dimension of the somatic mutations.
 
 ### Components:	
-&#x1F534;_**(Question: Will all three links point to the same asset in MoDaC? Yes)**_
+&#x1F534;_**(All three links will point to the same asset in MoDaC.)**_
 * Untrained model: 
   * The untrained neural network model is defined in the model topology file [p1b2.model.json](https://modac.cancer.gov/searchTab?dme_data_id=). 
 * Data:
-  * The processed training and test data are in [ToDo: MoDaC](https://modac.cancer.gov/searchTab?dme_data_id=).
+  * The processed training and test data are in [MoDaC](https://modac.cancer.gov/searchTab?dme_data_id=).
 * Trained Model:
   * The trained model is defined by combining the untrained model and model weights.
   * The trained model weights are used in inference [p1b2.model.h5](https://modac.cancer.gov/searchTab?dme_data_id=).
