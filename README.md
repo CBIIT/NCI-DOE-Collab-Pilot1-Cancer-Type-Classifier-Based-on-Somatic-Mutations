@@ -1,7 +1,7 @@
-# NCI-DOE-Collab-Pilot1-Mutation_Classifier
+# NCI-DOE-Collab-Pilot1-Cancer-Type-Classifier-Based-on-Somatic-Mutations
 
 ### Description
-The Mutation Classifier capability (Pilot 1 Benchmark 2, also known as P1B2) shows how to build a deep learning network that can classify the cancer type.
+The Cancer Type Classifier Based on Somatic Mutations capability (Pilot 1 Benchmark 2, also known as P1B2) shows how to build a deep learning network that can classify the cancer type.
 
 ### User Community
 Researchers interested in the following topics:
