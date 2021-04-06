@@ -15,14 +15,15 @@ A data scientist can use the provided untrained model. The scripts use already-p
 Using neural networks in classification of somatic mutation has been presented in other research papers. This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs), which might not be the best way to reduce the features space. The technical team is not sure about the uniqueness of the method used to reduce the dimension of the somatic mutations.
 
 ### Components
-&#x1F534;_**(All three links will point to the same asset in MoDaC.)**_
+The following components are in the [Cancer Type Classifier Based on Somatic Mutations (P1B2)
+](https://modac.cancer.gov/searchTab?dme_data_id=NCI-DME-MS01-7564992) dataset in the Model and Data Clearinghouse (MoDaC):
 * Untrained model: 
-  * The untrained neural network model is defined in the model topology file [p1b2.model.json](https://modac.cancer.gov/searchTab?dme_data_id=). 
+  * The untrained neural network model is defined in the model topology file p1b2.model.json. 
 * Data:
-  * The processed training and test data are in [MoDaC](https://modac.cancer.gov/searchTab?dme_data_id=).
+  * The processed training and test data are in MoDaC.
 * Trained model:
   * The trained model is defined by combining the untrained model and model weights.
-  * The trained model weights are used in inference [p1b2.model.h5](https://modac.cancer.gov/searchTab?dme_data_id=).
+  * The trained model weights are used in inference p1b2.model.h5.
 
 ### Technical Details
 Refer to this [README](./Pilot1/P1B2/README.md).
