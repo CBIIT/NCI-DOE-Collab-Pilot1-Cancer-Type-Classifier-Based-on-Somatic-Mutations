@@ -33,7 +33,7 @@ To download the processed data needed to train and test the model, and the train
 To train the model from scratch, execute the script [p1b2_baseline_keras2.py](p1b2_baseline_keras2.py), as follows: 
 
 ```cd Pilot1/P1B2
-   python p1b2_baseline_keras2.py --val_split 0.2
+   python p1b2_baseline_keras2.py --val_split 0.2 --epochs 20
    ```
 
 This script does the following:
