@@ -1,45 +1,51 @@
-### Model description:
-P1B2 is an a deep learning network that can classify the cancer type using patient somatic SNPs.
-The proposed network architecture is MLP with regularization, which includes 5 layers.
-The model is trained and validated on SNP data from GDC. The sample size is 4,000 (3000 training + 1000 test).
-The full set of features contains 28,205 columns.
-It is useful for classification based on very sparse input data and evaluation of the information content and predictive value in a molecular assay with auxiliary learning tasks.
+### Model Description
+The Cancer Type Classifier Based on Somatic Mutations capability (Pilot 1 Benchmark 2, also known as P1B2) is a deep learning network that can classify the cancer type using patient somatic Single Nucleotide Polymorphisms (SNPs). The proposed network architecture is MultiLayer Perceptron (MLP) with regularization, which includes five layers. We trained and validated the model on SNP data from Genomic Data Commons (GDC). It is useful for classification based on very sparse input data and evaluation of the information content and predictive value in a molecular assay with auxiliary learning tasks.
 
-### Description of the Data:
-* Data source: SNP data from GDC MAF files
-* Input dimensions: 28,205 (aggregated variation impact by gene from 2.7 million unique SNPs)
-* Output dimensions: 10 class probabilities (9 most abundant cancer types in GDC + 1 “others”)
-* Sample size: 4,000 (3000 training + 1000 test)
-* Notes on data balance and other issues: data balance achieved via undersampling; “others” category drawn from all remaining lower-abundance cancer types in GDC
+### Description of the Data
+* Data source: SNP data from GDC Mutation Annotation Format (MAF) files
+* Input dimensions: 28,205 columns (aggregated variation impact by gene from 2.7 million unique SNPs) 
+* Output dimensions: 10 class probabilities (the nine most abundant cancer types in GDC and one probability for “others”)
+* Sample size: 4,000 samples (3000 training and 1000 test) 
+* Notes on data balance and other issues: Data balance achieved via undersampling; The “others” category represents all remaining lower-abundance cancer types in GDC.
 
-### Expected Outcomes:
+### Expected Outcomes
 * Classification
 * Output range or number of classes: 10
 
-### Setup:
-To setup the python environment needed to train and run this model, first make sure you install [conda](https://docs.conda.io/en/latest/) package manager, clone this repository, then create the environment as shown below.
+### Setup
+To set up the Python environment needed to train and run this model:
+1. Install the [conda](https://docs.conda.io/en/latest/) package manager.
+2. Clone this repository.
+3. Create the environment as shown below.
 
 ```bash
    conda env create -f environment.yml -n P1B2
    conda activate P1B2
    ```
    
-To download the processed data needed to train and test the model, and the trained model files, you should create an account first on the Model and Data Clearinghouse [MoDac](modac.cancer.gov). The training and test scripts will prompt you to enter your MoDac credentials.
+To download the processed data needed to train and test the model, and the trained model files:
+1. Create an account on the Model and Data Clearinghouse ([MoDaC](https://modac.cancer.gov/)). 
+2. Follow the instructions in the Training section below.
+3. When prompted by the training and test scripts, enter your MoDaC credentials.
 
-### Training:
+### Training
 
-To train the model from scratch, the script [p1b2_baseline_keras2.py](p1b2_baseline_keras2.py) does the following:
-* Downloads the training data and splits it to training/validation sets
-* Creates and trains the keras model
-* Saves the best trained model based on the model performance on the validation dataset
-* Evaluates the best model on the test dataset
+To train the model from scratch, execute the script [p1b2_baseline_keras2.py](p1b2_baseline_keras2.py), as follows: 
 
 ```cd Pilot1/P1B2
-   python p1b2_baseline_keras2.py --val_split 0.2
+   python p1b2_baseline_keras2.py --val_split 0.2 --epochs 20
    ```
-The training and test data files will be downloaded the first time this is run and will be cached for future runs.
 
-#### Example output
+This script does the following:
+* Reads the model configuration parameters from [p1b2_default_model.txt](p1b2_default_model.txt)
+* Downloads the training data and splits it into training/validation sets.
+* Creates and trains the Keras model.
+* Saves the best trained model based on the model performance on the validation dataset.
+* Evaluates the best model on the test dataset.
+
+The first time you run the script, it downloads the training and test data files. Then it caches the files for future runs.
+
+#### Example Output
 
 ```
 Using TensorFlow backend.
@@ -106,18 +112,21 @@ best_val_loss = 1.58964 best_val_acc = 0.58333
 Evaluation on test data: {'accuracy': 0.543}
 ```
 
-### Inference: 
+### Inference
 
-To test the trained model in inference, the script [p1b2_infer.py](p1b2_infer.py) does the following:
-* Loads the trained model
-* Downloads the processed test dataset with the corresponding labels
-* Performs inference on the test dataset
-* Reports the accuracy of the model on the test dataset
+To test the trained model in inference, execute the script [p1b2_infer.py](p1b2_infer.py), as follows: 
 
 ```bash
    python p1b2_infer.py
    ```
-#### Example output
+
+This script does the following:
+* Downloads the trained model from MoDaC. 
+* Downloads the processed test dataset from MoDaC with the corresponding labels.
+* Performs inference on the test dataset.
+* Reports the accuracy of the model on the test dataset.
+
+#### Example Output
 ```
 Evaluation on test data: {'accuracy': 0.544}
 

@@ -124,8 +124,10 @@ def load_data(params, seed):
                                   seed=seed)
 
 def load_data2(params, seed, shuffle=True, n_cols=None):
-    train_path = get_file('P1B2.train.csv', origin='http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/P1B2/P1B2.train.csv')
-    test_path = get_file('P1B2.test.csv', origin='http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/P1B2/P1B2.test.csv')
+    train_path = get_file('P1B2.train.csv', origin=params['data_url'] + params['train_data'])
+    test_path = get_file('P1B2.test.csv', origin=params['data_url'] + params['test_data'])
+#     train_path = get_file('P1B2.train.csv', origin='http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/P1B2/P1B2.train.csv')
+#     test_path = get_file('P1B2.test.csv', origin='http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/P1B2/P1B2.test.csv')
 
     usecols = list(range(n_cols)) if n_cols else None
 

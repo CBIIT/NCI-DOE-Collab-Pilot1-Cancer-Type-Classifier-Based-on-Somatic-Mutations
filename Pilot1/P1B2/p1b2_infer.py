@@ -59,13 +59,21 @@ def run(gParameters):
                                                 kerasDefaults)
 
     # load json and create model
-    json_file = open('p1b2.model.json', 'r')
+#     json_file = open('p1b2.model.json', 'r')
+    trained_model_json = gParameters['trained_model_json']
+    json_data_url = gParameters['data_url'] + trained_model_json
+    candle.get_file(trained_model_json, json_data_url, datadir=".")
+    json_file = open(trained_model_json, 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model_json = model_from_json(loaded_model_json)
 
     # load weights into new model
-    loaded_model_json.load_weights('p1b2.model.h5')
+    trained_model_h5 = gParameters['trained_model_h5']
+    h5_data_url = gParameters['data_url'] + trained_model_h5
+    candle.get_file(trained_model_h5, h5_data_url, datadir=".")
+    loaded_model_json.load_weights(trained_model_h5)
+#     loaded_model_json.load_weights('p1b2.model.h5')
     print("Loaded model from disk")
 
     # evaluate loaded model on test data
