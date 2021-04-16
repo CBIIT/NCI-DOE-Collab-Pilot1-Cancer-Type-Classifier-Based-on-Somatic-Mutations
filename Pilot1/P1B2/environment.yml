@@ -1,4 +1,4 @@
-name: mt-cnn
+name: P1B2
 channels:
   - defaults
   - conda-forge
