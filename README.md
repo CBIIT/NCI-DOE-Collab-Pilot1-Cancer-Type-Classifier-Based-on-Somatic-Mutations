@@ -9,7 +9,7 @@ Researchers interested in the following topics:
 * Secondary: Machine Learning; Bioinformatics; Computational Biology
 
 ### Usability
-A data scientist can use the provided untrained model as reference, or the trained model for inference. The provided scripts use data that has been downloaded and processed from the Genomic Data Commons (GDC).
+A data scientist can use the provided untrained model as reference, or the trained model for inference. The provided scripts use data that have been downloaded and processed from the Genomic Data Commons (GDC).
 
 ### Uniqueness
 This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs), which might be one of many methods to reduce the features space. 
