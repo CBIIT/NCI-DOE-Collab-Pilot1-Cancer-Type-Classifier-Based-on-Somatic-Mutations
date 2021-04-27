@@ -1,7 +1,7 @@
 # NCI-DOE-Collab-Pilot1-Cancer-Type-Classifier-Based-on-Somatic-Mutations
 
 ### Description
-The Cancer Type Classifier Based on Somatic Mutations capability (Pilot 1 Benchmark 2, also known as P1B2) shows how to build a deep learning network that can classify the cancer type.
+The Cancer Type Classifier Based on Somatic Mutations capability (Pilot 1 Benchmark 2, also known as P1B2) shows how to build a deep learning network that can classify the cancer type from somatic mutations.
 
 ### User Community
 Researchers interested in the following topics:
@@ -9,10 +9,10 @@ Researchers interested in the following topics:
 * Secondary: Machine Learning; Bioinformatics; Computational Biology
 
 ### Usability
-A data scientist can use the provided untrained model. The scripts use already-processed data. The untrained model makes heavy use of CANDLE API layers, which may limit its usability for novice users.
+A data scientist can use the provided untrained model as reference, or the trained model for inference. The provided scripts use data that have been downloaded and processed from the Genomic Data Commons (GDC).
 
 ### Uniqueness
-Using neural networks in classification of somatic mutation has been presented in other research papers. This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs), which might not be the best way to reduce the features space. The technical team is not sure about the uniqueness of the method used to reduce the dimension of the somatic mutations.
+This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs), which might be one of many methods to reduce the features space. 
 
 ### Components
 The following components are in the [Cancer Type Classifier Based on Somatic Mutations (P1B2)
