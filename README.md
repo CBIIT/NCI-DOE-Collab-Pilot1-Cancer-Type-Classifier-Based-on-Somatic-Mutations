@@ -12,7 +12,7 @@ Researchers interested in the following topics:
 A data scientist can use the provided untrained model as reference, or the trained model for inference. The provided scripts use data that has been downloaded and processed from the Genomic Data Commons (GDC).
 
 ### Uniqueness
-This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs), which might is one of method to reduce the features space. 
+This model aggregates the variation impact by gene from 2.7 million unique single nucleotide polymorphisms (SNPs), which might is one of many methods to reduce the features space. 
 
 ### Components
 The following components are in the [Cancer Type Classifier Based on Somatic Mutations (P1B2)
