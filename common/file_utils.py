@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from __future__ import print_function
+from urllib.parse import urlparse
 
 import tarfile
 import os
@@ -112,7 +113,8 @@ def get_file(fname, origin, untar=False,
     '''
 
     if download:
-        if 'modac.cancer.gov' in origin:
+        from urllib.parse import urlparse
+        if urlparse(origin).hostname and urlparse(origin).hostname.endswith(".modac.cancer.gov"):
             get_file_from_modac(fpath, origin)
         else:
             print('Downloading data from', origin)
